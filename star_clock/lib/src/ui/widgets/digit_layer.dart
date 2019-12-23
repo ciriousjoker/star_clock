@@ -1,11 +1,6 @@
-import 'dart:developer';
-import 'dart:math' as prefix0;
-
-import 'package:digital_clock/src/core/flare_controllers/digit_controller.dart';
 import 'package:digital_clock/src/core/helpers/theme_helper.dart';
 import 'package:digital_clock/star_clock.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 
 class DigitLayer extends StatefulWidget {
@@ -34,10 +29,6 @@ class _DigitWidgetState extends State<DigitLayer> {
 
   @override
   Widget build(BuildContext context) {
-    // controllerCurrent.onCompleted("entry");
-
-    print("DigitLayer build()");
-
     return FlareActor(
       "assets/number_${widget.digit.toString()}.flr",
       animation: animation,
@@ -55,6 +46,4 @@ class _DigitWidgetState extends State<DigitLayer> {
       sizeFromArtboard: true,
     );
   }
-
-  bool notNull(Object o) => o != null;
 }

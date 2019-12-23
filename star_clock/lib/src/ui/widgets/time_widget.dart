@@ -1,10 +1,6 @@
-import 'dart:math';
-
 import 'package:digital_clock/src/ui/widgets/digit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'digit_widget_v2.dart';
 
 class TimeWidget extends StatefulWidget {
   final bool is24HourFormat;

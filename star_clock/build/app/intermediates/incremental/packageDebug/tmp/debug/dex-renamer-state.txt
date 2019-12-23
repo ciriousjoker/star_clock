@@ -1,4 +1,0 @@
-#Mon Dec 23 13:59:57 CET 2019
-base.0=F\:\\Projects\\Flutter\\star_clock\\star_clock\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
