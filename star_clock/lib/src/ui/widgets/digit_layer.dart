@@ -9,7 +9,6 @@ class DigitLayer extends StatefulWidget {
 
   static const String ANIMATION_ENTRY = "entry";
   static const String ANIMATION_IDLE = "idle";
-  static const String ANIMATION_EXIT = "exit";
 
   const DigitLayer({Key key, this.digit, this.animation}) : super(key: key);
 
