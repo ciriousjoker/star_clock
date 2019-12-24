@@ -98,7 +98,7 @@ class _DigitWidgetState extends State<DigitWidget2> {
       controller: digitController[layer],
       color: theme == ClockTheme.day ? Colors.blueGrey.shade900 : Colors.white,
       callback: (name) {
-        print("Animation done: " + name);
+        // print("Animation done: " + name);
         // if (name == DigitWidget.ANIMATION_ENTRY) {
         //   // flareController[layer].play(DigitWidget.ANIMATION_IDLE);
         //   setState(() {

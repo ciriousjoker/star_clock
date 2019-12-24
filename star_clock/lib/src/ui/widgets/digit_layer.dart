@@ -31,11 +31,9 @@ class _DigitWidgetState extends State<DigitLayer> {
     return FlareActor(
       "assets/number_${widget.digit.toString()}.flr",
       animation: animation,
-      color: getClockTheme(context) == ClockTheme.day
-          ? Colors.blueGrey.shade900
-          : Colors.white,
+      color: DateTime.now().hour > 20 ? Colors.blueGrey.shade900 : Colors.white,
       callback: (name) {
-        print("Animation done: " + name);
+        // print("Animation done: " + name);
         if (name == DigitLayer.ANIMATION_ENTRY) {
           setState(() {
             animation = DigitLayer.ANIMATION_IDLE;

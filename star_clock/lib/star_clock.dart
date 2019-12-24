@@ -11,7 +11,6 @@ import 'package:digital_clock/src/ui/widgets/time_widget.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 enum _Element {
   background,
@@ -48,7 +47,11 @@ class StarClock extends StatefulWidget {
 class _StarClockState extends State<StarClock> {
   DateTime _dateTime = DateTime.now();
   Timer _timer;
-  BackgroundController _backgroundController = BackgroundController();
+  BackgroundController _backgroundControllerNight =
+      BackgroundController(ClockTheme.night);
+  BackgroundController _backgroundControllerDay =
+      BackgroundController(ClockTheme.day);
+
   CloudController _cloudController = CloudController();
   ClockTheme theme = ClockTheme.night;
 
@@ -86,6 +89,7 @@ class _StarClockState extends State<StarClock> {
   void _updateTime() {
     setState(() {
       _dateTime = DateTime.now();
+
       // Update once per minute. If you want to update every second, use the
       // following code.
       // _timer = Timer(
@@ -106,60 +110,108 @@ class _StarClockState extends State<StarClock> {
   @override
   Widget build(BuildContext context) {
     theme = getClockTheme(context);
+
     final colors = Theme.of(context).brightness == Brightness.light
         ? _lightTheme
         : _darkTheme;
 
-    final fontSize = MediaQuery.of(context).size.width / 3.5;
+    WeatherCondition weather = widget.model.weatherCondition;
 
-    final defaultStyle = TextStyle(
-      color: colors[_Element.text],
-      fontFamily: 'PressStart2P',
-      fontSize: fontSize,
-      shadows: [
-        Shadow(
-          blurRadius: 0,
-          color: colors[_Element.shadow],
-          offset: Offset(10, 0),
-        ),
-      ],
-    );
-
-    _backgroundController.theme = theme;
+    // _backgroundControllerNight.theme = theme;
+    // _backgroundControllerDay.theme = theme;
 
     return Container(
       color: colors[_Element.background],
       child: Center(
-        child: DefaultTextStyle(
-          style: defaultStyle,
-          child: Stack(
-            children: <Widget>[
-              // Positioned(left: offset, top: 0, child: Text(hour)),
-              // Positioned(right: offset, bottom: offset, child: Text(minute)),
-              FlareActor(
-                "assets/background.flr",
-                controller: _backgroundController,
-                sizeFromArtboard: true,
+        child: Stack(
+          children: <Widget>[
+            // Positioned(left: offset, top: 0, child: Text(hour)),
+            // Positioned(right: offset, bottom: offset, child: Text(minute)),
+            theme == ClockTheme.day
+                ? Container(
+                    key: Key(theme.toShortString()),
+                    child: FlareActor(
+                      "assets/backgroundv2.flr",
+                      controller: _backgroundControllerDay,
+                      sizeFromArtboard: true,
+                    ),
+                  )
+                : Container(
+                    key: Key(theme.toShortString()),
+                    child: FlareActor(
+                      "assets/backgroundv2.flr",
+                      controller: _backgroundControllerNight,
+                      sizeFromArtboard: true,
+                    ),
+                  ),
+
+            // Weather effects
+            // NOTE: Only show weather if the theme is light
+            theme == ClockTheme.day
+                ? Stack(children: <Widget>[
+                    weather == WeatherCondition.foggy
+                        ? FlareActor(
+                            "assets/foggy.flr",
+                            animation: "idle",
+                            sizeFromArtboard: true,
+                          )
+                        : Container(),
+                    weather == WeatherCondition.rainy ||
+                            weather == WeatherCondition.thunderstorm
+                        ? FlareActor(
+                            "assets/rainy.flr",
+                            animation: "idle",
+                            sizeFromArtboard: true,
+                          )
+                        : Container(),
+                    weather == WeatherCondition.windy ||
+                            weather == WeatherCondition.thunderstorm
+                        ? FlareActor(
+                            "assets/windy.flr",
+                            animation: "idle",
+                            sizeFromArtboard: true,
+                          )
+                        : Container(),
+                    weather == WeatherCondition.sunny
+                        ? FlareActor(
+                            "assets/sunny.flr",
+                            animation: "idle",
+                            sizeFromArtboard: true,
+                          )
+                        : Container(),
+                    weather == WeatherCondition.snowy
+                        ? FlareActor(
+                            "assets/snowy.flr",
+                            animation: "idle",
+                            sizeFromArtboard: true,
+                          )
+                        : Container(),
+                    weather == WeatherCondition.cloudy
+                        ? FlareActor(
+                            "assets/cloudy.flr",
+                            animation: "idle",
+                            sizeFromArtboard: true,
+                          )
+                        : Container(),
+                    weather == WeatherCondition.thunderstorm
+                        ? FlareActor(
+                            "assets/thunderstorm.flr",
+                            animation: "idle",
+                            sizeFromArtboard: true,
+                          )
+                        : Container(),
+                  ])
+                : Container(),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.only(left: 80),
+                child: TimeWidget(
+                    is24HourFormat: widget.model.is24HourFormat,
+                    dateTime: _dateTime),
               ),
-              FlareActor(
-                "assets/clouds.flr",
-                controller: _cloudController,
-                color: theme == ClockTheme.day
-                    ? Colors.blue.shade300
-                    : Colors.white,
-                sizeFromArtboard: true,
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 80),
-                  child: TimeWidget(
-                      is24HourFormat: widget.model.is24HourFormat,
-                      dateTime: _dateTime),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

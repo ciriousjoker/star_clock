@@ -54,26 +54,8 @@ class _DigitWidgetState extends State<DigitWidget> {
 
     var ret = Container(
       key: Key("${++counter}"),
-      // color: Colors.blue,
       child: Stack(
         children: [
-          // Container(
-          //   constraints: BoxConstraints(maxWidth: 40),
-          //   child: FlareActor("assets/number_0.flr", animation: "entry",),
-          // ),
-          // Container(
-          //   constraints: BoxConstraints(maxWidth: 40),
-          //   child: FlareActor("assets/number_1.flr", animation: "entry",),
-          // ),
-          // Container(
-          //   constraints: BoxConstraints(maxWidth: 40),
-          //   child: FlareActor("assets/number_2.flr", animation: "entry",),
-          // ),
-          // Container(
-          //   constraints: BoxConstraints(maxWidth: 40),
-          //   child: FlareActor("assets/number_3.flr", animation: "entry",),
-          // ),
-
           Container(
             constraints: BoxConstraints(maxWidth: 130),
             child: getAnimationLayer(0),
@@ -82,20 +64,6 @@ class _DigitWidgetState extends State<DigitWidget> {
             constraints: BoxConstraints(maxWidth: 130),
             child: getAnimationLayer(1),
           ),
-
-          // Container(
-          //   constraints: BoxConstraints(maxWidth: 40),
-          //   child: FlareActor(
-          //     "assets/number_${digits[0].toString()}.flr",
-          //     animation: animation[0],
-          //     // controller: flareController[layer],
-          //     sizeFromArtboard: true,
-          //   ),
-          // ),
-          // Container(
-          //   constraints: BoxConstraints(maxWidth: 40),
-          //   child: ,
-          // ),
         ],
       ),
     );
@@ -115,10 +83,7 @@ class _DigitWidgetState extends State<DigitWidget> {
 
     // var theme = getClockTheme(context);
 
-    return DigitLayer(
-      animation: animation[layer],
-      digit: digit,
-    );
+    return DigitLayer(animation: animation[layer], digit: digit);
   }
 
   int getLayer(topIsActive) {

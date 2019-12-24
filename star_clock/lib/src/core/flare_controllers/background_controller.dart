@@ -1,49 +1,96 @@
 import 'dart:developer';
 
+import 'package:digital_clock/src/core/helpers/theme_helper.dart';
 import 'package:digital_clock/star_clock.dart';
 import 'package:flare_flutter/flare.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:flare_dart/math/mat2d.dart';
+import 'package:flutter_clock_helper/model.dart';
 
 class BackgroundController extends FlareController {
   static const double DemoMixSpeed = 10;
   static const double FPS = 60;
+  static const double TRANSITION_DURATION = 5;
 
-  BackgroundController();
+  ClockTheme _theme;
+  BackgroundController(this._theme);
+
+  double transitionTime = 0;
+  double timeWeather = 0;
 
   // bool isDemoMode = true;
-  ClockTheme _theme = ClockTheme.night;
-  // double _lastDemoValue = 0.0;
+  // WeatherCondition _weather = WeatherCondition.sunny;
 
   FlutterActorArtboard _artboard;
-  FlareAnimationLayer _animMovingStars;
-  FlareAnimationLayer _animMovingWaves;
+  FlareAnimationLayer _animIdle;
+  FlareAnimationLayer _animStars;
+  // FlareAnimationLayer _animWeatherTransition;
+  // FlareAnimationLayer _animWeatherIdle;
 
-  final List<FlareAnimationLayer> _animsThemeTransitions = [];
+  // FlareAnimationLayer _animTransition;
+  // final List<FlareAnimationLayer> _animsThemeTransitions = [];
 
   @override
   bool advance(FlutterActorArtboard artboard, double elapsed) {
-    /// Advance the background animation every frame.
-    _animMovingStars.time =
-        (_animMovingStars.time + elapsed) % _animMovingStars.duration;
-    _animMovingStars.apply(artboard);
+    // Background idle animation throughout the day
+    DateTime date = DateTime.now();
 
-    _animMovingWaves.time =
-        (_animMovingWaves.time + elapsed) % _animMovingWaves.duration;
-    _animMovingWaves.apply(artboard);
+    if (_animIdle != null) {
+      int secondsPassed = date.hour * 60 * 60 + date.minute * 60 + date.second;
+      int secondsTotal = 24 * 60 * 60;
+      double animPercentage = (secondsPassed / secondsTotal).toDouble();
+      _animIdle.time = animPercentage * 24;
+      _animIdle.apply(artboard);
 
-    // /// Iterate from the top b/c elements might be removed.
-    for (var layer in _animsThemeTransitions) {
-      layer.time += elapsed;
-      layer.mix = 1.0;
-      layer.apply(artboard);
-
-      /// When done, remove it.
-      if (layer.isDone) {
-        _animsThemeTransitions.remove(layer);
-      }
+      // Stars are always moving, even if not visible
+      _animStars.time = (_animStars.time + elapsed) % _animStars.duration;
+      _animStars.apply(artboard);
     }
+
+    // // All the idle weather animations
+    // if (_animWeatherIdle != null) {
+    //   timeWeather += elapsed;
+    //   _animWeatherIdle.time = timeWeather % _animWeatherIdle.duration;
+    //   _animWeatherIdle.mix = 1.0;
+    //   _animWeatherIdle.apply(artboard);
+    // }
+
+    // if (_animWeatherTransition != null) {
+    //   // print("Transition time: " + transitionTime.toString());
+    //   _animWeatherTransition.time = transitionTime;
+    //   transitionTime = (transitionTime + elapsed);
+    //   _animWeatherTransition.mix = transitionTime / TRANSITION_DURATION;
+
+    //   _animWeatherTransition.apply(artboard);
+
+    //   // Move transition to idle
+    //   if (transitionTime >= TRANSITION_DURATION) {
+    //     transitionTime = 0;
+    //     _animWeatherTransition = null;
+    //   }
+    // }
+
+    // if (_animTransition != null) {
+    //   // _animSnow.time = (_animSnow.time + elapsed) % _animSnow.duration;
+    //   // _animSnow.apply(artboard);
+
+    //   // _animTransition.time = transitionTime / TRANSITION_DURATION;
+    //   _animTransition.apply(artboard);
+    // }
+
+    // // /// Iterate from the top b/c elements might be removed.
+    // for (var layer in _animsThemeTransitions) {
+    //   transitionTime = (transitionTime + elapsed) % TRANSITION_DURATION;
+    //   layer.time = transitionTime;
+    //   layer.mix = 1.0;
+    //   layer.apply(artboard);
+
+    //   /// When done, remove it.
+    //   if (layer.isDone) {
+    //     _animsThemeTransitions.remove(layer);
+    //   }
+    // }
 
     // /// If the app is still in demo mode, the mix is positive
     // /// Otherwise quickly ramp it down to stop the animation.
@@ -69,45 +116,71 @@ class BackgroundController extends FlareController {
   @override
   void initialize(FlutterActorArtboard artboard) {
     _artboard = artboard;
-    _animMovingStars = FlareAnimationLayer()
+
+    if (_theme == ClockTheme.day) {
+      _animIdle = FlareAnimationLayer()
+        ..animation = _artboard.getAnimation("day_night")
+        ..mix = 1.0;
+    } else {
+      _animIdle = FlareAnimationLayer()
+        ..animation = _artboard.getAnimation("night_only")
+        ..mix = 1.0;
+    }
+
+    _animStars = FlareAnimationLayer()
       ..animation = _artboard.getAnimation("stars_moving")
       ..mix = 1.0;
-    _animMovingWaves = FlareAnimationLayer()
-      ..animation = _artboard.getAnimation("waves_moving")
-      ..mix = 1.0;
 
-    // ActorAnimation endAnimation = artboard.getAnimation("to 6");
-    // if (endAnimation != null) {
-    //   endAnimation.apply(endAnimation.duration, artboard, 1.0);
-    // }
+    // _animWeatherIdle = FlareAnimationLayer()
+    //   ..animation = _artboard.getAnimation("weather_idle")
+    //   ..mix = 1.0;
   }
 
-  _enqueueAnimation(String name) {
-    ActorAnimation animation = _artboard.getAnimation(name);
-    if (animation != null) {
-      _animsThemeTransitions.add(FlareAnimationLayer()..animation = animation);
-    }
-  }
+  // _changeWeather(WeatherCondition name) {
+  //   if (name == null) {
+  //     transitionTime = 0;
+  //     _animWeatherTransition = null;
+  //   }
 
-  set theme(ClockTheme theme) {
-    if (_theme == theme) {
-      return;
-    }
+  //   if (_artboard == null) {
+  //     return;
+  //   }
 
-    /// Sanity check.
-    if (_artboard != null) {
-      if (theme == ClockTheme.day) {
-        _enqueueAnimation("transition_night_day");
-      } else {
-        _enqueueAnimation("transition_day_night");
-        log("TODO: Implement");
-      }
-      _theme = theme;
-    }
-  }
+  //   ActorAnimation animation = _artboard.getAnimation(name.toShortString());
+  //   if (animation != null) {
+  //     transitionTime = 0;
+  //     // _animsThemeTransitions.add(FlareAnimationLayer()..animation = animation);
+  //     // _animTransition = FlareAnimationLayer()..animation = animation;
+
+  //     _animWeatherTransition = FlareAnimationLayer()..animation = animation;
+  //   }
+  // }
+
+  // set theme(ClockTheme theme) {
+  //   if (_theme != theme) {
+  //     print("Theme: " + theme.toShortString());
+  //     _theme = theme;
+
+  //     if (theme == ClockTheme.day) {
+  //       _animIdle = FlareAnimationLayer()
+  //         ..animation = _artboard.getAnimation("day_night")
+  //         ..mix = 1.0;
+  //     } else {
+  //       _animIdle = FlareAnimationLayer()
+  //         ..animation = _artboard.getAnimation("night_only")
+  //         ..mix = 1.0;
+  //     }
+  //   }
+  // }
 
   // int get rooms => _rooms;
 
   @override
   void setViewTransform(Mat2D viewTransform) {}
+}
+
+extension ParseToString on ClockTheme {
+  String toShortString() {
+    return this.toString().split('.').last;
+  }
 }
