@@ -1,0 +1,3 @@
+[submodule "star_clock/third_party/weather-icons"]
+	path = star_clock/third_party/weather-icons
+	url = https://github.com/erikflowers/weather-icons
