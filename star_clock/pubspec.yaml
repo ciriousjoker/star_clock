@@ -21,6 +21,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/numbers/
+    - assets/weather/
   fonts:
     - family: PressStart2P
       fonts:
