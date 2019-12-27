@@ -1,21 +1,24 @@
-import 'dart:developer';
-import 'dart:math' as prefix0;
-
 import 'package:digital_clock/src/core/flare_controllers/digit_controller.dart';
-import 'package:digital_clock/src/core/helpers/theme_helper.dart';
 import 'package:digital_clock/src/ui/widgets/digit_layer.dart';
-import 'package:digital_clock/star_clock.dart';
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 
 class DigitWidget extends StatefulWidget {
-  final int digit;
   static const String ANIMATION_ENTRY = "entry";
   static const String ANIMATION_IDLE = "idle";
   static const String ANIMATION_EXIT = "exit";
 
-  const DigitWidget({Key key, this.digit}) : super(key: key);
+  static const int MAX_WIDTH = 130;
+
+  /// This is necessary to get unique keys to rebuild the widget
+  final int position;
+
+  /// Set to -1 to display a colon
+  final int digit;
+
+  final double scale;
+
+  const DigitWidget({Key key, this.digit, this.position, this.scale = 1.0})
+      : super(key: key);
 
   @override
   _DigitWidgetState createState() => _DigitWidgetState();
@@ -30,7 +33,7 @@ class _DigitWidgetState extends State<DigitWidget> {
 
   bool isTransitioning = false;
   List<int> digits = [0, 0];
-  // List<bool> hidden = [false, false];
+
   List<String> animation = ["idle", "idle"];
 
   int counter = 0;
@@ -38,35 +41,41 @@ class _DigitWidgetState extends State<DigitWidget> {
   @override
   void initState() {
     super.initState();
-    // digits[getLayer(!active)] = widget.digit;
-    // active = !active;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.digit != digits[getLayer(!active)]) {
+    bool shouldRebuild = widget.digit != digits[getLayer(active)];
+    if (shouldRebuild) {
       digits[getLayer(!active)] = digits[getLayer(active)];
       digits[getLayer(active)] = widget.digit;
 
       animation[getLayer(active)] = DigitWidget.ANIMATION_ENTRY;
       animation[getLayer(!active)] = DigitWidget.ANIMATION_EXIT;
+      counter++;
     }
 
     var ret = Container(
-      key: Key("${++counter}"),
-      child: Stack(
-        children: [
-          Container(
-            constraints: BoxConstraints(maxWidth: 130),
-            child: getAnimationLayer(0),
-          ),
-          Container(
-            constraints: BoxConstraints(maxWidth: 130),
-            child: getAnimationLayer(1),
-          ),
-        ],
-      ),
-    );
+        key: Key("DigitContainer_${widget.position}_$counter"),
+        child: Stack(
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                  maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
+              child: getAnimationLayer(0),
+            ),
+            Container(
+              constraints: BoxConstraints(
+                  maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
+              child: getAnimationLayer(1),
+            ),
+          ],
+        ));
+
+    // key: Key("${++counter}"),
+    // if (shouldRebuild) {
+    //   ret.key = Key("${++counter}");
+    // }
 
     return ret;
   }
@@ -75,13 +84,9 @@ class _DigitWidgetState extends State<DigitWidget> {
     int digit = digits[layer];
 
     if (digit == null) {
-      log("Digit is null");
+      print("Digit is null");
       digit = 404;
     }
-
-    // log("Layer: $layer | Digit: ${getDigitString(digit)} | Anim: ${animation[layer]}");
-
-    // var theme = getClockTheme(context);
 
     return DigitLayer(animation: animation[layer], digit: digit);
   }
@@ -91,16 +96,7 @@ class _DigitWidgetState extends State<DigitWidget> {
   }
 
   String getDigitString(int digitOld) {
-    // if (digitOld == 3) {
-    //   return "1";
-    // }
-
     String digitString = digitOld.toString();
-    // if (digitTransition > 0) {
-    //   digitString = "404";
-    // }
-
-    // log("Returned digit: $digitString");
     return digitString;
   }
 

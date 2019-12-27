@@ -4,6 +4,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
 class DigitLayer extends StatefulWidget {
+  /// Set to -1 to display a colon
   final int digit;
   final String animation;
 
@@ -28,8 +29,13 @@ class _DigitWidgetState extends State<DigitLayer> {
 
   @override
   Widget build(BuildContext context) {
+    String filename = widget.digit.toString();
+    if (widget.digit == -1) {
+      filename = "colon";
+    }
+
     return FlareActor(
-      "assets/number_${widget.digit.toString()}.flr",
+      "assets/numbers/$filename.flr",
       animation: animation,
       color: DateTime.now().hour > 20 ? Colors.blueGrey.shade900 : Colors.white,
       callback: (name) {

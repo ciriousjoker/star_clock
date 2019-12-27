@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TimeWidget extends StatefulWidget {
+  final double scale = 1.1;
+
   final bool is24HourFormat;
 
   final DateTime dateTime;
@@ -39,42 +41,64 @@ class _TimeWidgetState extends State<TimeWidget> {
     final hour =
         DateFormat(widget.is24HourFormat ? 'HH' : 'hh').format(widget.dateTime);
     final minute = DateFormat('mm').format(widget.dateTime);
-    final second = DateFormat('ss').format(widget.dateTime);
+    // final second = DateFormat('ss').format(widget.dateTime);
 
-    final secondInt = int.parse(second.substring(1, 2));
-    final secondDelayed = (secondInt / 2).round();
-    // digits.add(int.parse(hour.substring(0, 1)));
-    // digits.add(int.parse(hour.substring(1, 2)));
+    digits.add(int.parse(hour.substring(0, 1)));
+    digits.add(int.parse(hour.substring(1, 2)));
 
     // Divider
-    // digits.add(-1);
-    // digits.add(0);
+    digits.add(-1);
 
-    print("Seconds: " + second);
-    // digits.add(int.parse(minute.substring(1, 2)));
-    digits.add(secondDelayed);
+    digits.add(int.parse(minute.substring(0, 1)));
+    digits.add(int.parse(minute.substring(1, 2)));
+
+    // // Seconds
+    // print("Seconds: " + second);
+    // digits.add(int.parse(second.substring(0, 1)));
+    // digits.add(int.parse(second.substring(1, 2)));
     return digits;
   }
 
   List<Widget> getDigitWidgets(List<int> digitsPrevious, List<int> digits) {
-    var test = digits.map((digit) {
-      return
-          // IntrinsicHeight(
-          // child:
-          Container(
-        // color: Colors.yellow,
-        constraints: BoxConstraints(maxWidth: 50, maxHeight: 130),
-        child: OverflowBox(
-          maxWidth: 130,
-          maxHeight: 130,
+    // for(int i = 0; i < digits)
 
-          // margin: EdgeInsets.all(-10),
-          child: DigitWidget(digit: digit),
+    List<Widget> ret = new List();
+
+    digits.asMap().forEach((index, value) {
+      ret.add(Container(
+        constraints: BoxConstraints(
+            maxWidth: 50 * widget.scale,
+            maxHeight: DigitWidget.MAX_WIDTH * widget.scale),
+        child: OverflowBox(
+          maxWidth: DigitWidget.MAX_WIDTH * widget.scale,
+          maxHeight: DigitWidget.MAX_WIDTH * widget.scale,
+          child: DigitWidget(
+            position: index,
+            digit: value,
+            scale: widget.scale,
+          ),
         ),
-        // ),
-      );
-    }).toList();
-    return test;
+      ));
+    });
+
+    // var test = digits.map((digit) {
+    //   return
+    //       // IntrinsicHeight(
+    //       // child:
+    //       Container(
+    //     // color: Colors.yellow,
+    //     constraints: BoxConstraints(maxWidth: 50, maxHeight: 130),
+    //     child: OverflowBox(
+    //       maxWidth: 130,
+    //       maxHeight: 130,
+
+    //       // margin: EdgeInsets.all(-10),
+    //       child: DigitWidget(digit: digit),
+    //     ),
+    //     // ),
+    //   );
+    // }).toList();
+    return ret;
     // return [
     //   // Text("0:0")
     //   Container(

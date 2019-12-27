@@ -179,8 +179,3 @@ class BackgroundController extends FlareController {
   void setViewTransform(Mat2D viewTransform) {}
 }
 
-extension ParseToString on ClockTheme {
-  String toShortString() {
-    return this.toString().split('.').last;
-  }
-}

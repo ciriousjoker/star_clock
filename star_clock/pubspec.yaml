@@ -23,7 +23,3 @@ flutter:
     - assets/
     - assets/numbers/
     - assets/weather/
-  fonts:
-    - family: PressStart2P
-      fonts:
-        - asset: third_party/PressStart2P-Regular.ttf
