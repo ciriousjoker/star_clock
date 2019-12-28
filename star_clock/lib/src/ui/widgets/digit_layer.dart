@@ -1,3 +1,4 @@
+import 'package:digital_clock/src/core/helpers/state_helper.dart';
 import 'package:digital_clock/star_clock.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +14,15 @@ class DigitLayer extends StatefulWidget {
 
   final ClockTheme theme;
   final WeatherCondition weather;
+  final DateTime dateTime;
 
   const DigitLayer({
     Key key,
-    this.digit,
-    this.animation,
-    this.theme,
-    this.weather,
+    @required this.digit,
+    @required this.animation,
+    @required this.theme,
+    @required this.dateTime,
+    @required this.weather,
   }) : super(key: key);
 
   @override
@@ -48,7 +51,6 @@ class _DigitWidgetState extends State<DigitLayer> {
       animation: animation,
       color: getDigitColor(),
       callback: (name) {
-        // print("Animation done: " + name);
         if (name == DigitLayer.ANIMATION_ENTRY) {
           setState(() {
             animation = DigitLayer.ANIMATION_IDLE;
@@ -60,24 +62,8 @@ class _DigitWidgetState extends State<DigitLayer> {
   }
 
   Color getDigitColor() {
-    if (widget.theme == ClockTheme.night) {
-      return Colors.white;
-    }
-
-    // Weather exceptions
-    if (widget.weather == WeatherCondition.thunderstorm ||
-        widget.weather == WeatherCondition.rainy ||
-        widget.weather == WeatherCondition.windy ||
-        // widget.weather == WeatherCondition.snowy ||
-        widget.weather == WeatherCondition.cloudy) {
-      return Colors.white;
-    }
-
-    // Default color for day/night
-    if (DateTime.now().hour < 8 || DateTime.now().hour > 20) {
-      return Colors.white;
-    } else {
-      return Colors.blueGrey.shade900;
-    }
+    return isDark(widget.theme, widget.dateTime, widget.weather)
+        ? Colors.white
+        : Colors.blueGrey.shade900;
   }
 }

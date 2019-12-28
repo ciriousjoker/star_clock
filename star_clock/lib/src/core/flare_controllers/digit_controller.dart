@@ -1,8 +1,4 @@
-import 'dart:developer';
-
-import 'package:digital_clock/star_clock.dart';
 import 'package:flare_flutter/flare.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
 import 'package:flare_dart/math/mat2d.dart';
 
@@ -29,7 +25,6 @@ class DigitController extends FlareController {
 
     _exitAnimation = artboard.getAnimation(ANIMATION_EXIT);
 
-    // _exit = false;
     _looping = false;
   }
 
@@ -38,10 +33,6 @@ class DigitController extends FlareController {
     _duration += elapsed;
 
     if (_exit) {
-      // _exitAnimation.time =
-      //     (_exitAnimation.time + elapsed) % _exitAnimation.duration;
-      // _exitAnimation.time += elapsed;
-      // _exitAnimation.apply(artboard);
       _exitAnimation.apply(_duration, artboard, _mix);
       return true;
     }
@@ -65,10 +56,6 @@ class DigitController extends FlareController {
   exit() {
     print("Controller: exit()");
     _exit = true;
-    // ActorAnimation animation = _artboard.getAnimation(name);
-    // if (animation != null) {
-    //   _animsThemeTransitions.add(FlareAnimationLayer()..animation = animation);
-    // }
   }
 
   @override

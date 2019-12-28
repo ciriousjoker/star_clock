@@ -13,7 +13,11 @@ class TimeWidget extends StatefulWidget {
 
   final DateTime dateTime;
   TimeWidget(
-      {Key key, this.is24HourFormat, this.dateTime, this.theme, this.weather})
+      {Key key,
+      @required this.is24HourFormat,
+      @required this.dateTime,
+      @required this.theme,
+      @required this.weather})
       : super(key: key);
 
   @override
@@ -29,15 +33,12 @@ class _TimeWidgetState extends State<TimeWidget> {
     digits = getDigits();
 
     return Container(
-      // color: Colors.green,
-      // child: IntrinsicHeight(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: getDigitWidgets(digitsPrevious, digits),
       ),
-      // ),
     );
   }
 
@@ -47,7 +48,6 @@ class _TimeWidgetState extends State<TimeWidget> {
     final hour =
         DateFormat(widget.is24HourFormat ? 'HH' : 'hh').format(widget.dateTime);
     final minute = DateFormat('mm').format(widget.dateTime);
-    // final second = DateFormat('ss').format(widget.dateTime);
 
     digits.add(int.parse(hour.substring(0, 1)));
     digits.add(int.parse(hour.substring(1, 2)));
@@ -59,6 +59,7 @@ class _TimeWidgetState extends State<TimeWidget> {
     digits.add(int.parse(minute.substring(1, 2)));
 
     // // Seconds
+    // digits.add(-1);
     // print("Seconds: " + second);
     // digits.add(int.parse(second.substring(0, 1)));
     // digits.add(int.parse(second.substring(1, 2)));
@@ -66,8 +67,6 @@ class _TimeWidgetState extends State<TimeWidget> {
   }
 
   List<Widget> getDigitWidgets(List<int> digitsPrevious, List<int> digits) {
-    // for(int i = 0; i < digits)
-
     List<Widget> ret = new List();
 
     digits.asMap().forEach((index, value) {
@@ -84,42 +83,12 @@ class _TimeWidgetState extends State<TimeWidget> {
             scale: TimeWidget.SCALE,
             theme: widget.theme,
             weather: widget.weather,
+            dateTime: widget.dateTime,
           ),
         ),
       ));
     });
 
-    // var test = digits.map((digit) {
-    //   return
-    //       // IntrinsicHeight(
-    //       // child:
-    //       Container(
-    //     // color: Colors.yellow,
-    //     constraints: BoxConstraints(maxWidth: 50, maxHeight: 130),
-    //     child: OverflowBox(
-    //       maxWidth: 130,
-    //       maxHeight: 130,
-
-    //       // margin: EdgeInsets.all(-10),
-    //       child: DigitWidget(digit: digit),
-    //     ),
-    //     // ),
-    //   );
-    // }).toList();
     return ret;
-    // return [
-    //   // Text("0:0")
-    //   Container(
-    //     constraints: BoxConstraints(maxHeight: 100),
-    //     child: FlareActor(
-    //       "assets/number_0.flr",
-    //       animation: "idle",
-    //       fit: BoxFit.scaleDown,
-    //       sizeFromArtboard: true,
-    //       // boundsNode: "Stars",
-    //       // shouldClip: true,
-    //     ),
-    //   ),
-    // ];
   }
 }

@@ -19,17 +19,19 @@ class DigitWidget extends StatefulWidget {
 
   final ClockTheme theme;
   final WeatherCondition weather;
+  final DateTime dateTime;
 
   final double scale;
 
-  const DigitWidget(
-      {Key key,
-      this.digit,
-      this.position,
-      this.scale = 1.0,
-      this.theme,
-      this.weather})
-      : super(key: key);
+  const DigitWidget({
+    Key key,
+    @required this.digit,
+    @required this.position,
+    @required this.theme,
+    @required this.weather,
+    @required this.dateTime,
+    this.scale = 1.0,
+  }) : super(key: key);
 
   @override
   _DigitWidgetState createState() => _DigitWidgetState();
@@ -67,28 +69,24 @@ class _DigitWidgetState extends State<DigitWidget> {
     }
 
     var ret = Container(
-        // Rebuild if any of the data changes
-        key: Key(
-            "DigitContainer_${widget.theme.toString()}_${widget.weather.toString()}_${widget.position}_$counter"),
-        child: Stack(
-          children: [
-            Container(
-              constraints: BoxConstraints(
-                  maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
-              child: getAnimationLayer(0),
-            ),
-            Container(
-              constraints: BoxConstraints(
-                  maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
-              child: getAnimationLayer(1),
-            ),
-          ],
-        ));
-
-    // key: Key("${++counter}"),
-    // if (shouldRebuild) {
-    //   ret.key = Key("${++counter}");
-    // }
+      // Rebuild only if any of the data changes
+      key: Key(
+          "DigitContainer_${widget.theme.toString()}_${widget.weather.toString()}_${widget.position}_$counter"),
+      child: Stack(
+        children: [
+          Container(
+            constraints:
+                BoxConstraints(maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
+            child: getAnimationLayer(0),
+          ),
+          Container(
+            constraints:
+                BoxConstraints(maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
+            child: getAnimationLayer(1),
+          ),
+        ],
+      ),
+    );
 
     return ret;
   }
@@ -105,16 +103,12 @@ class _DigitWidgetState extends State<DigitWidget> {
       digit: digit,
       theme: widget.theme,
       weather: widget.weather,
+      dateTime: widget.dateTime,
     );
   }
 
   int getLayer(topIsActive) {
     return topIsActive ? 1 : 0;
-  }
-
-  String getDigitString(int digitOld) {
-    String digitString = digitOld.toString();
-    return digitString;
   }
 
   bool notNull(Object o) => o != null;

@@ -1,17 +1,8 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:async';
-import 'package:digital_clock/src/core/extensions.dart';
-
-import 'package:digital_clock/src/core/flare_controllers/background_controller.dart';
-import 'package:digital_clock/src/core/flare_controllers/cloud_controller.dart';
 import 'package:digital_clock/src/core/helpers/theme_helper.dart';
 import 'package:digital_clock/src/ui/widgets/background_widget.dart';
 import 'package:digital_clock/src/ui/widgets/time_widget.dart';
 import 'package:digital_clock/src/ui/widgets/weather_hud_widget.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
 
@@ -90,18 +81,18 @@ class _StarClockState extends State<StarClock> {
 
       // Update once per minute. If you want to update every second, use the
       // following code.
-      // _timer = Timer(
-      //   Duration(minutes: 1) -
-      //       Duration(seconds: _dateTime.second) -
-      //       Duration(milliseconds: _dateTime.millisecond),
-      //   _updateTime,
-      // );
-      // Update once per second, but make sure to do it at the beginning of each
-      // new second, so that the clock is accurate.
       _timer = Timer(
-        Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
+        Duration(minutes: 1) -
+            Duration(seconds: _dateTime.second) -
+            Duration(milliseconds: _dateTime.millisecond),
         _updateTime,
       );
+      // Update once per second, but make sure to do it at the beginning of each
+      // new second, so that the clock is accurate.
+      // _timer = Timer(
+      //   Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
+      //   _updateTime,
+      // );
     });
   }
 
@@ -120,7 +111,11 @@ class _StarClockState extends State<StarClock> {
       child: Center(
         child: Stack(
           children: <Widget>[
-            BackgroundWidget(theme: theme, weather: weather),
+            BackgroundWidget(
+              theme: theme,
+              weather: weather,
+              dateTime: _dateTime,
+            ),
             Align(
               alignment: Alignment.center,
               child: Padding(
@@ -139,6 +134,7 @@ class _StarClockState extends State<StarClock> {
                 child: WeatherHudWidget(
                   theme: theme,
                   model: widget.model,
+                  dateTime: _dateTime,
                 ),
               ),
             )

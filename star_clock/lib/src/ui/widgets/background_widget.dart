@@ -10,23 +10,34 @@ class BackgroundWidget extends StatefulWidget {
 
   final ClockTheme theme;
   final WeatherCondition weather;
+  final DateTime dateTime;
 
-  const BackgroundWidget({Key key, this.theme, this.weather}) : super(key: key);
+  const BackgroundWidget(
+      {Key key,
+      @required this.theme,
+      @required this.weather,
+      @required this.dateTime})
+      : super(key: key);
 
   @override
   _BackgroundWidgetState createState() => _BackgroundWidgetState();
 }
 
 class _BackgroundWidgetState extends State<BackgroundWidget> {
-  BackgroundController _backgroundControllerNight =
-      BackgroundController(ClockTheme.night);
+  BackgroundController _backgroundControllerDay;
+  BackgroundController _backgroundControllerNight;
 
-  BackgroundController _backgroundControllerDay =
-      BackgroundController(ClockTheme.day);
+  @override
+  void initState() {
+    super.initState();
+    _backgroundControllerDay =
+        BackgroundController(ClockTheme.day, widget.dateTime);
+    _backgroundControllerNight =
+        BackgroundController(ClockTheme.night, widget.dateTime);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // List<Widget> layers = getWeatherLayers();
     return Stack(children: <Widget>[
       Container(
         key: Key(widget.theme.toShortString()),
@@ -50,7 +61,7 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
 
   List<Widget> getWeatherLayers() {
     return <Widget>[
-      // In case of thunderstorm: Add windy, rainy & cloudy as well
+      // In case of thunderstorm: Add windy, rainy & cloudy as well (onlky bonus clouds for rainy)
       widget.weather == WeatherCondition.thunderstorm
           ? FlareActor(
               getWeatherFile("windy"),

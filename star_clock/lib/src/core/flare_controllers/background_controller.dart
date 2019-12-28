@@ -9,7 +9,8 @@ class BackgroundController extends FlareController {
   static const double ANIMATION_SPEED_STARS_SHOOTING = 0.65;
 
   ClockTheme _theme;
-  BackgroundController(this._theme);
+  DateTime _dateTime;
+  BackgroundController(this._theme, this._dateTime);
 
   double transitionTime = 0;
   double timeWeather = 0;
@@ -22,11 +23,9 @@ class BackgroundController extends FlareController {
 
   @override
   bool advance(FlutterActorArtboard artboard, double elapsed) {
-    // Background idle animation throughout the day
-    DateTime date = DateTime.now();
-
     if (_animIdle != null) {
-      int secondsPassed = date.hour * 60 * 60 + date.minute * 60 + date.second;
+      int secondsPassed =
+          _dateTime.hour * 60 * 60 + _dateTime.minute * 60 + _dateTime.second;
       int secondsTotal = 24 * 60 * 60;
       double animPercentage = (secondsPassed / secondsTotal).toDouble();
       _animIdle.time = animPercentage * 24;
@@ -54,8 +53,6 @@ class BackgroundController extends FlareController {
     return true;
   }
 
-  /// Grab the references to the right animations, and
-  /// packs them into [FlareAnimationLayer] objects
   @override
   void initialize(FlutterActorArtboard artboard) {
     _artboard = artboard;
