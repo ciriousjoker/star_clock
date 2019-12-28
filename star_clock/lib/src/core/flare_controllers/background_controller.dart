@@ -5,8 +5,8 @@ import 'package:flare_flutter/flare_controller.dart';
 import 'package:flare_dart/math/mat2d.dart';
 
 class BackgroundController extends FlareController {
-  static const double ANIMATION_SPEED_STARS_MOVING = 0.15;
-  static const double ANIMATION_SPEED_STARS_SHOOTING = 0.65;
+  static const double ANIMATION_SPEED_STARS_MOVING = 0.15 * 60;
+  static const double ANIMATION_SPEED_STARS_SHOOTING = 0.65 * 60;
 
   ClockTheme _theme;
   DateTime _dateTime;
@@ -46,7 +46,7 @@ class BackgroundController extends FlareController {
 
     // Shooting
     _animStarsShooting.time = (_animStarsShooting.time +
-            (elapsed * BackgroundController.ANIMATION_SPEED_STARS_MOVING)) %
+            (elapsed * BackgroundController.ANIMATION_SPEED_STARS_SHOOTING)) %
         _animStarsShooting.duration;
     _animStarsShooting.apply(artboard);
 
