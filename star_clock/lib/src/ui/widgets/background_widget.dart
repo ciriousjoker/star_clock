@@ -38,6 +38,9 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _backgroundControllerDay.dateTime = widget.dateTime;
+    _backgroundControllerNight.dateTime = widget.dateTime;
+
     return Stack(children: <Widget>[
       Container(
         key: Key(widget.theme.toShortString()),
@@ -50,8 +53,8 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
         ),
       ),
       widget.theme == ClockTheme.day &&
-              DateTime.now().hour >= 7 &&
-              DateTime.now().hour < 20
+              widget.dateTime.hour >= 7 &&
+              widget.dateTime.hour < 20
           ? Stack(
               children: getWeatherLayers(),
             )

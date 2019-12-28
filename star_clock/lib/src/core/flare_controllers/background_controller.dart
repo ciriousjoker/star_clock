@@ -80,6 +80,10 @@ class BackgroundController extends FlareController {
       ..mix = 1.0;
   }
 
+  set dateTime(DateTime dateTime) {
+    _dateTime = dateTime;
+  }
+
   @override
   void setViewTransform(Mat2D viewTransform) {}
 }
