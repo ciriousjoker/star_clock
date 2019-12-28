@@ -1,14 +1,20 @@
 import 'package:digital_clock/src/ui/widgets/digit_widget.dart';
+import 'package:digital_clock/star_clock.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_clock_helper/model.dart';
 import 'package:intl/intl.dart';
 
 class TimeWidget extends StatefulWidget {
-  final double scale = 1.1;
+  static const double SCALE = 1.1;
 
   final bool is24HourFormat;
+  final ClockTheme theme;
+  final WeatherCondition weather;
 
   final DateTime dateTime;
-  TimeWidget({Key key, this.is24HourFormat, this.dateTime}) : super(key: key);
+  TimeWidget(
+      {Key key, this.is24HourFormat, this.dateTime, this.theme, this.weather})
+      : super(key: key);
 
   @override
   _TimeWidgetState createState() => _TimeWidgetState();
@@ -67,15 +73,17 @@ class _TimeWidgetState extends State<TimeWidget> {
     digits.asMap().forEach((index, value) {
       ret.add(Container(
         constraints: BoxConstraints(
-            maxWidth: 50 * widget.scale,
-            maxHeight: DigitWidget.MAX_WIDTH * widget.scale),
+            maxWidth: 50 * TimeWidget.SCALE,
+            maxHeight: DigitWidget.MAX_WIDTH * TimeWidget.SCALE),
         child: OverflowBox(
-          maxWidth: DigitWidget.MAX_WIDTH * widget.scale,
-          maxHeight: DigitWidget.MAX_WIDTH * widget.scale,
+          maxWidth: DigitWidget.MAX_WIDTH * TimeWidget.SCALE,
+          maxHeight: DigitWidget.MAX_WIDTH * TimeWidget.SCALE,
           child: DigitWidget(
             position: index,
             digit: value,
-            scale: widget.scale,
+            scale: TimeWidget.SCALE,
+            theme: widget.theme,
+            weather: widget.weather,
           ),
         ),
       ));

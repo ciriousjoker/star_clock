@@ -1,6 +1,8 @@
 import 'package:digital_clock/src/core/flare_controllers/digit_controller.dart';
 import 'package:digital_clock/src/ui/widgets/digit_layer.dart';
+import 'package:digital_clock/star_clock.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_clock_helper/model.dart';
 
 class DigitWidget extends StatefulWidget {
   static const String ANIMATION_ENTRY = "entry";
@@ -15,9 +17,18 @@ class DigitWidget extends StatefulWidget {
   /// Set to -1 to display a colon
   final int digit;
 
+  final ClockTheme theme;
+  final WeatherCondition weather;
+
   final double scale;
 
-  const DigitWidget({Key key, this.digit, this.position, this.scale = 1.0})
+  const DigitWidget(
+      {Key key,
+      this.digit,
+      this.position,
+      this.scale = 1.0,
+      this.theme,
+      this.weather})
       : super(key: key);
 
   @override
@@ -32,7 +43,7 @@ class _DigitWidgetState extends State<DigitWidget> {
   ];
 
   bool isTransitioning = false;
-  List<int> digits = [0, 0];
+  List<int> digits = [null, null];
 
   List<String> animation = ["idle", "idle"];
 
@@ -56,7 +67,9 @@ class _DigitWidgetState extends State<DigitWidget> {
     }
 
     var ret = Container(
-        key: Key("DigitContainer_${widget.position}_$counter"),
+        // Rebuild if any of the data changes
+        key: Key(
+            "DigitContainer_${widget.theme.toString()}_${widget.weather.toString()}_${widget.position}_$counter"),
         child: Stack(
           children: [
             Container(
@@ -84,11 +97,15 @@ class _DigitWidgetState extends State<DigitWidget> {
     int digit = digits[layer];
 
     if (digit == null) {
-      print("Digit is null");
-      digit = 404;
+      return Container();
     }
 
-    return DigitLayer(animation: animation[layer], digit: digit);
+    return DigitLayer(
+      animation: animation[layer],
+      digit: digit,
+      theme: widget.theme,
+      weather: widget.weather,
+    );
   }
 
   int getLayer(topIsActive) {
