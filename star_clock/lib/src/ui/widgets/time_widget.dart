@@ -5,7 +5,9 @@ import 'package:flutter_clock_helper/model.dart';
 import 'package:intl/intl.dart';
 
 class TimeWidget extends StatefulWidget {
-  static const double SCALE = 1.1;
+  static const double SCALE = 2.0;
+  static const double SPACE_PERCENTAGE = 0.75;
+  static const double COLON_PERCENTAGE = 0.5;
 
   final bool is24HourFormat;
   final ClockTheme theme;
@@ -31,13 +33,17 @@ class _TimeWidgetState extends State<TimeWidget> {
   Widget build(BuildContext context) {
     List<int> digitsPrevious = digits;
     digits = getDigits();
+    double padding = 30.0;
+    double widthTotal =
+        5 / 3 * (MediaQuery.of(context).size.shortestSide.floor() - padding);
+    // double height = MediaQuery.of(context).size.height;
 
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: getDigitWidgets(digitsPrevious, digits),
+        children: getDigitWidgets(digitsPrevious, digits, widthTotal),
       ),
     );
   }
@@ -66,21 +72,27 @@ class _TimeWidgetState extends State<TimeWidget> {
     return digits;
   }
 
-  List<Widget> getDigitWidgets(List<int> digitsPrevious, List<int> digits) {
+  List<Widget> getDigitWidgets(
+      List<int> digitsPrevious, List<int> digits, double widthTotal) {
     List<Widget> ret = new List();
+
+    double widthPerDigit = TimeWidget.SPACE_PERCENTAGE *
+        widthTotal /
+        (digits.length - TimeWidget.COLON_PERCENTAGE);
 
     digits.asMap().forEach((index, value) {
       ret.add(Container(
         constraints: BoxConstraints(
-            maxWidth: 50 * TimeWidget.SCALE,
-            maxHeight: DigitWidget.MAX_WIDTH * TimeWidget.SCALE),
+          maxWidth: value != -1
+              ? widthPerDigit
+              : widthPerDigit * TimeWidget.COLON_PERCENTAGE,
+        ),
         child: OverflowBox(
-          maxWidth: DigitWidget.MAX_WIDTH * TimeWidget.SCALE,
-          maxHeight: DigitWidget.MAX_WIDTH * TimeWidget.SCALE,
+          maxWidth: widthPerDigit * TimeWidget.SCALE,
+          maxHeight: widthPerDigit * TimeWidget.SCALE,
           child: DigitWidget(
             position: index,
             digit: value,
-            scale: TimeWidget.SCALE,
             theme: widget.theme,
             weather: widget.weather,
             dateTime: widget.dateTime,

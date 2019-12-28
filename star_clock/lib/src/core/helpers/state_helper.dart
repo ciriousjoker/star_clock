@@ -15,7 +15,7 @@ bool isDark(ClockTheme theme, DateTime dateTime, WeatherCondition weather) {
   }
 
   // Default color for day/night
-  if (dateTime.hour < 8 || dateTime.hour >= 19) {
+  if (dateTime.hour < 11 || dateTime.hour >= 19) {
     return true;
   } else {
     return false;

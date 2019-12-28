@@ -57,7 +57,7 @@ class _DigitWidgetState extends State<DigitLayer> {
           });
         }
       },
-      sizeFromArtboard: true,
+      sizeFromArtboard: false,
     );
   }
 

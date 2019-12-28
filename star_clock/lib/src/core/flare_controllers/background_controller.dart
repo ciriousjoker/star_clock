@@ -5,8 +5,8 @@ import 'package:flare_flutter/flare_controller.dart';
 import 'package:flare_dart/math/mat2d.dart';
 
 class BackgroundController extends FlareController {
-  static const double ANIMATION_SPEED_STARS_MOVING = 0.15 * 60;
-  static const double ANIMATION_SPEED_STARS_SHOOTING = 0.65 * 60;
+  static const double ANIMATION_SPEED_STARS_MOVING = 0.15;
+  static const double ANIMATION_SPEED_STARS_SHOOTING = 0.65;
 
   ClockTheme _theme;
   DateTime _dateTime;

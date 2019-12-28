@@ -1,4 +1,5 @@
 import 'package:digital_clock/src/core/flare_controllers/digit_controller.dart';
+import 'package:digital_clock/src/core/helpers/state_helper.dart';
 import 'package:digital_clock/src/ui/widgets/digit_layer.dart';
 import 'package:digital_clock/star_clock.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,6 @@ class DigitWidget extends StatefulWidget {
   static const String ANIMATION_ENTRY = "entry";
   static const String ANIMATION_IDLE = "idle";
   static const String ANIMATION_EXIT = "exit";
-
-  static const int MAX_WIDTH = 130;
 
   /// This is necessary to get unique keys to rebuild the widget
   final int position;
@@ -21,8 +20,6 @@ class DigitWidget extends StatefulWidget {
   final WeatherCondition weather;
   final DateTime dateTime;
 
-  final double scale;
-
   const DigitWidget({
     Key key,
     @required this.digit,
@@ -30,7 +27,6 @@ class DigitWidget extends StatefulWidget {
     @required this.theme,
     @required this.weather,
     @required this.dateTime,
-    this.scale = 1.0,
   }) : super(key: key);
 
   @override
@@ -44,7 +40,6 @@ class _DigitWidgetState extends State<DigitWidget> {
     DigitController()
   ];
 
-  bool isTransitioning = false;
   List<int> digits = [null, null];
 
   List<String> animation = ["idle", "idle"];
@@ -58,6 +53,8 @@ class _DigitWidgetState extends State<DigitWidget> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkNow = isDark(widget.theme, widget.dateTime, widget.weather);
+
     bool shouldRebuild = widget.digit != digits[getLayer(active)];
     if (shouldRebuild) {
       digits[getLayer(!active)] = digits[getLayer(active)];
@@ -71,19 +68,11 @@ class _DigitWidgetState extends State<DigitWidget> {
     var ret = Container(
       // Rebuild only if any of the data changes
       key: Key(
-          "DigitContainer_${widget.theme.toString()}_${widget.weather.toString()}_${widget.position}_$counter"),
+          "DigitContainer_${isDarkNow.toString()}_${widget.theme.toString()}_${widget.weather.toString()}_${widget.position}_$counter"),
       child: Stack(
         children: [
-          Container(
-            constraints:
-                BoxConstraints(maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
-            child: getAnimationLayer(0),
-          ),
-          Container(
-            constraints:
-                BoxConstraints(maxWidth: DigitWidget.MAX_WIDTH * widget.scale),
-            child: getAnimationLayer(1),
-          ),
+          getAnimationLayer(0),
+          getAnimationLayer(1),
         ],
       ),
     );
