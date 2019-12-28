@@ -10,6 +10,7 @@ import 'package:digital_clock/src/core/flare_controllers/cloud_controller.dart';
 import 'package:digital_clock/src/core/helpers/theme_helper.dart';
 import 'package:digital_clock/src/ui/widgets/background_widget.dart';
 import 'package:digital_clock/src/ui/widgets/time_widget.dart';
+import 'package:digital_clock/src/ui/widgets/weather_hud_widget.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +127,19 @@ class _StarClockState extends State<StarClock> {
                 padding: EdgeInsets.only(bottom: 32),
                 child: TimeWidget(
                     is24HourFormat: widget.model.is24HourFormat,
-                    dateTime: _dateTime),
+                    dateTime: _dateTime,
+                    theme: theme,
+                    weather: weather),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 0),
+                child: WeatherHudWidget(
+                  theme: theme,
+                  model: widget.model,
+                ),
               ),
             )
           ],

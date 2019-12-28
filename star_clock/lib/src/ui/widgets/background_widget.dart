@@ -38,7 +38,9 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
           sizeFromArtboard: true,
         ),
       ),
-      widget.theme == ClockTheme.day
+      widget.theme == ClockTheme.day &&
+              DateTime.now().hour >= 7 &&
+              DateTime.now().hour < 20
           ? Stack(
               children: getWeatherLayers(),
             )
@@ -48,16 +50,14 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
 
   List<Widget> getWeatherLayers() {
     return <Widget>[
-      // Add weather
-      widget.weather != null
+      // In case of thunderstorm: Add windy, rainy & cloudy as well
+      widget.weather == WeatherCondition.thunderstorm
           ? FlareActor(
-              getWeatherFile(widget.weather.toShortString()),
+              getWeatherFile("windy"),
               animation: BackgroundWidget.ANIMATION_IDLE,
               sizeFromArtboard: true,
             )
           : Container(),
-
-      // In case of thunderstorm: Add rainy & windy as well
       widget.weather == WeatherCondition.thunderstorm
           ? FlareActor(
               getWeatherFile("rainy"),
@@ -65,9 +65,19 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
               sizeFromArtboard: true,
             )
           : Container(),
-      widget.weather == WeatherCondition.thunderstorm
+      widget.weather == WeatherCondition.thunderstorm ||
+              widget.weather == WeatherCondition.rainy
           ? FlareActor(
-              getWeatherFile("windy"),
+              getWeatherFile("cloudy"),
+              animation: BackgroundWidget.ANIMATION_IDLE,
+              sizeFromArtboard: true,
+            )
+          : Container(),
+
+      // Add main weather
+      widget.weather != null
+          ? FlareActor(
+              getWeatherFile(widget.weather.toShortString()),
               animation: BackgroundWidget.ANIMATION_IDLE,
               sizeFromArtboard: true,
             )
