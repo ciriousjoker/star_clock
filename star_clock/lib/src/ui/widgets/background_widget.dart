@@ -49,7 +49,7 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
           controller: widget.theme == ClockTheme.day
               ? _backgroundControllerDay
               : _backgroundControllerNight,
-          sizeFromArtboard: true,
+          sizeFromArtboard: false,
         ),
       ),
       widget.theme == ClockTheme.day &&
@@ -69,14 +69,14 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
           ? FlareActor(
               getWeatherFile("windy"),
               animation: BackgroundWidget.ANIMATION_IDLE,
-              sizeFromArtboard: true,
+              sizeFromArtboard: false,
             )
           : Container(),
       widget.weather == WeatherCondition.thunderstorm
           ? FlareActor(
               getWeatherFile("rainy"),
               animation: BackgroundWidget.ANIMATION_IDLE,
-              sizeFromArtboard: true,
+              sizeFromArtboard: false,
             )
           : Container(),
       widget.weather == WeatherCondition.thunderstorm ||
@@ -84,7 +84,7 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
           ? FlareActor(
               getWeatherFile("cloudy"),
               animation: BackgroundWidget.ANIMATION_IDLE,
-              sizeFromArtboard: true,
+              sizeFromArtboard: false,
             )
           : Container(),
 
@@ -93,7 +93,7 @@ class _BackgroundWidgetState extends State<BackgroundWidget> {
           ? FlareActor(
               getWeatherFile(widget.weather.toShortString()),
               animation: BackgroundWidget.ANIMATION_IDLE,
-              sizeFromArtboard: true,
+              sizeFromArtboard: false,
             )
           : Container(),
     ];
