@@ -39,7 +39,7 @@ class StarClock extends StatefulWidget {
 }
 
 class _StarClockState extends State<StarClock> {
-  DateTime _dateTime = DateTime.now();
+  DateTime _dateTime = DateTime.parse("2019-12-28 18:55:00.000");
   Timer _timer;
 
   ClockTheme theme = ClockTheme.day;
