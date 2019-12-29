@@ -24,9 +24,10 @@ class BackgroundController extends FlareController {
   @override
   bool advance(FlutterActorArtboard artboard, double elapsed) {
     if (_animIdle != null) {
-      int secondsPassed =
-          _dateTime.hour * 60 * 60 + _dateTime.minute * 60 + _dateTime.second;
-      int secondsTotal = 24 * 60 * 60;
+      double secondsPassed = _dateTime.hour * 60 * 60 +
+          _dateTime.minute * 60 +
+          _dateTime.second.toDouble();
+      double secondsTotal = 24 * 60 * 60.0;
       double animPercentage = (secondsPassed / secondsTotal).toDouble();
       _animIdle.time = animPercentage * 24;
       _animIdle.apply(artboard);

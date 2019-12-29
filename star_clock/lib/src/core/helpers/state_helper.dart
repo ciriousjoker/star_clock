@@ -14,8 +14,12 @@ bool isDark(ClockTheme theme, DateTime dateTime, WeatherCondition weather) {
     return true;
   }
 
+  if (weather == WeatherCondition.foggy) {
+    return false;
+  }
+
   // Default color for day/night
-  if (dateTime.hour < 11 || dateTime.hour >= 19) {
+  if (dateTime.hour < 11 || dateTime.hour >= 16) {
     return true;
   } else {
     return false;
