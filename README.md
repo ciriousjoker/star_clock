@@ -3,15 +3,16 @@
 This is my entry for the [Flutter Clock Face Contest](https://flutter.dev/clock).
 
 Build instructions below.
-TLRD: Clone with `--recurse-submodules`
+**TLRD:** Clone with `--recurse-submodules`
 
-![https://www.youtube.com/watch?v=ZuHLtdbaXqc](star_clock/third_party/youtube-logo/yt_logo_rgb_light.png =250x250)
+#### Here's a small demo video:
+<a href='https://www.youtube.com/watch?v=ZuHLtdbaXqc'><img alt='Get it on the Chrome Webstore' src='star_clock/third_party/youtube-logo/yt_logo_rgb_light.png' height="32px"/></a>
 
 ### Screenshots
 
 | Day mode (sunny)                   | Night mode                        |
 | ---------------------------------- | --------------------------------- |
-| ![Sunny](./screenshots/cloudy.png) | ![Night](./screenshots/night.png) |
+| ![Sunny](./screenshots/sunny.png) | ![Night](./screenshots/night.png) |
 
 #### Weather (other)
 
