@@ -6,12 +6,13 @@ Build instructions below.
 **TLRD:** Clone with `--recurse-submodules`
 
 #### Here's a small demo video:
+
 <a href='https://www.youtube.com/watch?v=ZuHLtdbaXqc'><img alt='Get it on the Chrome Webstore' src='star_clock/third_party/youtube-logo/yt_logo_rgb_light.png' height="32px"/></a>
 
 ### Screenshots
 
-| Day mode (sunny)                   | Night mode                        |
-| ---------------------------------- | --------------------------------- |
+| Day mode (sunny)                  | Night mode                        |
+| --------------------------------- | --------------------------------- |
 | ![Sunny](./screenshots/sunny.png) | ![Night](./screenshots/night.png) |
 
 #### Weather (other)
@@ -28,7 +29,7 @@ Build instructions below.
 
 -   `git clone --recurse-submodules https://github.com/ciriousjoker/star_clock`
 -   `cd star_clock`
--   `flutter create .`
+-   `flutter create --org de.ciriousjoker .`
 -   `flutter pub run flutter_launcher_icons:main`
 -   `flutter run --release`
 
