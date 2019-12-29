@@ -14,13 +14,13 @@ class TimeWidget extends StatefulWidget {
   final WeatherCondition weather;
 
   final DateTime dateTime;
-  TimeWidget(
-      {Key key,
-      @required this.is24HourFormat,
-      @required this.dateTime,
-      @required this.theme,
-      @required this.weather})
-      : super(key: key);
+  TimeWidget({
+    Key key,
+    @required this.is24HourFormat,
+    @required this.dateTime,
+    @required this.theme,
+    @required this.weather,
+  }) : super(key: key);
 
   @override
   _TimeWidgetState createState() => _TimeWidgetState();
@@ -33,10 +33,8 @@ class _TimeWidgetState extends State<TimeWidget> {
   Widget build(BuildContext context) {
     List<int> digitsPrevious = digits;
     digits = getDigits();
-    double padding = 30.0;
-    double widthTotal =
-        5 / 3 * (MediaQuery.of(context).size.shortestSide.floor() - padding);
-    // double height = MediaQuery.of(context).size.height;
+
+    double widthTotal = getActualWidth(context);
 
     return Container(
       child: Row(
@@ -102,5 +100,21 @@ class _TimeWidgetState extends State<TimeWidget> {
     });
 
     return ret;
+  }
+
+  double getActualWidth(BuildContext context) {
+    double retWidthTotal = MediaQuery.of(context).size.width;
+
+    // Extra code when running this on android to have a consistent size
+    // TODO: Disable when building for an actual device
+    if (MediaQuery.of(context).orientation == Orientation.landscape) {
+      double statusBarHeight = 30.0;
+      double aspectRatio = 5 / 3;
+      retWidthTotal =
+          (aspectRatio * (MediaQuery.of(context).size.height - statusBarHeight))
+              .floorToDouble();
+    }
+
+    return retWidthTotal;
   }
 }

@@ -9,7 +9,6 @@ bool isDark(ClockTheme theme, DateTime dateTime, WeatherCondition weather) {
   // Weather exceptions
   if (weather == WeatherCondition.thunderstorm ||
       weather == WeatherCondition.rainy ||
-      weather == WeatherCondition.windy ||
       weather == WeatherCondition.cloudy) {
     return true;
   }
