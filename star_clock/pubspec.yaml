@@ -1,5 +1,5 @@
-name: digital_clock
-description: Digital clock.
+name: star_clock
+description: Star Clock
 version: 1.2.1+1
 
 environment:
