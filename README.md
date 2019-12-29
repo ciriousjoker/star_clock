@@ -42,3 +42,12 @@ Build instructions below.
     -   WAY too strong glow on moon
     -   thunderstorm freezes the page
     -   svg icon doesn't render
+
+### Legal
+
+This project is licensed under the [MIT License](LICENSE).
+
+The weather icon collection has its own license as described [here](https://github.com/erikflowers/weather-icons/#licensing).
+At the time of writing this, this means OFL for the icons, MIT for the code & CC BY 3.0 for the documentation.
+
+©2020 Google LLC All rights reserved. YouTube is a trademark of Google LLC.
