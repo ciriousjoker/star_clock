@@ -77,7 +77,8 @@ class _StarClockState extends State<StarClock> {
 
   void _updateTime() {
     setState(() {
-      _dateTime = _dateTime.add(Duration(minutes: 1));
+      _dateTime = DateTime.now();
+
       // Update once per minute. If you want to update every second, use the
       // following code.
       _timer = Timer(
