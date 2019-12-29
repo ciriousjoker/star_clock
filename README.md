@@ -5,7 +5,7 @@ This is my entry for the [Flutter Clock Face Contest](https://flutter.dev/clock)
 Build instructions below.
 TLRD: Clone with `--recurse-submodules`
 
-![https://www.youtube.com/watch?v=ZuHLtdbaXqc](./star_clock/third_party/youtube-logo/yt_logo_rgb_light.png =250x250)
+![https://www.youtube.com/watch?v=ZuHLtdbaXqc](star_clock/third_party/youtube-logo/yt_logo_rgb_light.png =250x250)
 
 ### Screenshots
 
