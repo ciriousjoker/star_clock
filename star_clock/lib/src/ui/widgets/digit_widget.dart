@@ -1,7 +1,7 @@
-import 'package:digital_clock/src/core/flare_controllers/digit_controller.dart';
-import 'package:digital_clock/src/core/helpers/state_helper.dart';
-import 'package:digital_clock/src/ui/widgets/digit_layer.dart';
-import 'package:digital_clock/star_clock.dart';
+import 'package:star_clock/src/core/flare_controllers/digit_controller.dart';
+import 'package:star_clock/src/core/helpers/state_helper.dart';
+import 'package:star_clock/src/ui/widgets/digit_layer.dart';
+import 'package:star_clock/star_clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
 

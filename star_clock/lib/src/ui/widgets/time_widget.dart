@@ -1,5 +1,5 @@
-import 'package:digital_clock/src/ui/widgets/digit_widget.dart';
-import 'package:digital_clock/star_clock.dart';
+import 'package:star_clock/src/ui/widgets/digit_widget.dart';
+import 'package:star_clock/star_clock.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:intl/intl.dart';

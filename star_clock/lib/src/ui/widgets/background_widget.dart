@@ -1,9 +1,9 @@
-import 'package:digital_clock/src/core/flare_controllers/background_controller.dart';
-import 'package:digital_clock/star_clock.dart';
+import 'package:star_clock/src/core/flare_controllers/background_controller.dart';
+import 'package:star_clock/star_clock.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
-import 'package:digital_clock/src/core/extensions.dart';
+import 'package:star_clock/src/core/extensions.dart';
 
 class BackgroundWidget extends StatefulWidget {
   static const String ANIMATION_IDLE = "idle";

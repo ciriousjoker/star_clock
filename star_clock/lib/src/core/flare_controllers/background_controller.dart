@@ -1,4 +1,4 @@
-import 'package:digital_clock/star_clock.dart';
+import 'package:star_clock/star_clock.dart';
 import 'package:flare_flutter/flare.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';

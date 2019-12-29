@@ -1,4 +1,4 @@
-import 'package:digital_clock/star_clock.dart';
+import 'package:star_clock/star_clock.dart';
 import 'package:flutter/material.dart';
 
 getClockTheme(BuildContext context) =>

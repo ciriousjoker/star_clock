@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:digital_clock/src/core/helpers/theme_helper.dart';
-import 'package:digital_clock/src/ui/widgets/background_widget.dart';
-import 'package:digital_clock/src/ui/widgets/time_widget.dart';
-import 'package:digital_clock/src/ui/widgets/weather_hud_widget.dart';
+import 'package:star_clock/src/core/helpers/theme_helper.dart';
+import 'package:star_clock/src/ui/widgets/background_widget.dart';
+import 'package:star_clock/src/ui/widgets/time_widget.dart';
+import 'package:star_clock/src/ui/widgets/weather_hud_widget.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
 
