@@ -9,26 +9,27 @@ TLRD: Clone with `--recurse-submodules`
 
 ### Screenshots
 
-| Day (sunny)  | Night        |
-| ------------ | ------------ |
-| Content Cell | Content Cell |
+| Day mode (sunny)                   | Night mode                        |
+| ---------------------------------- | --------------------------------- |
+| ![Sunny](./screenshots/cloudy.png) | ![Night](./screenshots/night.png) |
 
 #### Weather (other)
 
-| Cloudy       | Foggy        | Rainy        |
-| ------------ | ------------ | ------------ |
-| Content Cell | Content Cell | Content Cell |
+| Cloudy                              | Foggy                             | Rainy                             |
+| ----------------------------------- | --------------------------------- | --------------------------------- |
+| ![Cloudy](./screenshots/cloudy.png) | ![Foggy](./screenshots/foggy.png) | ![Rainy](./screenshots/rainy.png) |
 
-| Snowy        | Thunderstorm | Windy        |
-| ------------ | ------------ | ------------ |
-| Content Cell | Content Cell | Content Cell |
+| Snowy                             | Thunderstorm                                    | Windy                             |
+| --------------------------------- | ----------------------------------------------- | --------------------------------- |
+| ![Snowy](./screenshots/snowy.png) | ![Thunderstorm](./screenshots/thunderstorm.png) | ![Windy](./screenshots/windy.png) |
 
 ### Building
 
 -   `git clone --recurse-submodules https://github.com/ciriousjoker/star_clock`
 -   `cd star_clock`
 -   `flutter create .`
--   `flutter run --android` (tested) or `flutter run --ios` (untested)
+-   `flutter pub run flutter_launcher_icons:main`
+-   `flutter run --release`
 
 ### Notes
 

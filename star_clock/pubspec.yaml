@@ -1,6 +1,6 @@
 name: digital_clock
 description: Digital clock.
-version: 1.2.0+1
+version: 1.2.1+1
 
 environment:
     sdk: ">=2.6.0 <3.0.0"
@@ -13,6 +13,7 @@ dependencies:
     cupertino_icons: ^0.1.2
     flare_flutter: ^1.8.3
     flutter_svg: 0.15.0
+    flutter_launcher_icons: "^0.7.4"
 
 dev_dependencies:
     flutter_test:
@@ -25,3 +26,10 @@ flutter:
         - assets/numbers/
         - assets/weather/
         - third_party/weather-icons/svg/
+
+flutter_icons:
+    android: true
+    ios: true
+    image_path: "assets/appicon/icon.png"
+    adaptive_icon_foreground: "assets/appicon/foreground.png"
+    adaptive_icon_background: "assets/appicon/background.png"
