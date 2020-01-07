@@ -7,23 +7,23 @@ Build instructions below.
 
 #### Here's a small demo video:
 
-<a href='https://www.youtube.com/watch?v=ZuHLtdbaXqc'><img alt='Get it on the Chrome Webstore' src='star_clock/third_party/youtube-logo/yt_logo_rgb_light.png' height="32px"/></a>
+<a href='https://www.youtube.com/watch?v=ZuHLtdbaXqc'><img alt='Watch demo on YouTube' src='assets_readme/youtube-banner/YouTube Banner.png' height="32px"/></a>
 
 ### Screenshots
 
-| Day mode (sunny)                  | Night mode                        |
-| --------------------------------- | --------------------------------- |
-| ![Sunny](./screenshots/sunny.png) | ![Night](./screenshots/night.png) |
+| Day mode (sunny)                                | Night mode                                      |
+| ----------------------------------------------- | ----------------------------------------------- |
+| ![Sunny](./assets_readme/screenshots/sunny.png) | ![Night](./assets_readme/screenshots/night.png) |
 
 #### Weather (other)
 
-| Cloudy                              | Foggy                             | Rainy                             |
-| ----------------------------------- | --------------------------------- | --------------------------------- |
-| ![Cloudy](./screenshots/cloudy.png) | ![Foggy](./screenshots/foggy.png) | ![Rainy](./screenshots/rainy.png) |
+| Cloudy                                            | Foggy                                           | Rainy                                           |
+| ------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| ![Cloudy](./assets_readme/screenshots/cloudy.png) | ![Foggy](./assets_readme/screenshots/foggy.png) | ![Rainy](./assets_readme/screenshots/rainy.png) |
 
-| Snowy                             | Thunderstorm                                    | Windy                             |
-| --------------------------------- | ----------------------------------------------- | --------------------------------- |
-| ![Snowy](./screenshots/snowy.png) | ![Thunderstorm](./screenshots/thunderstorm.png) | ![Windy](./screenshots/windy.png) |
+| Snowy                                           | Thunderstorm                                                  | Windy                                           |
+| ----------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------- |
+| ![Snowy](./assets_readme/screenshots/snowy.png) | ![Thunderstorm](./assets_readme/screenshots/thunderstorm.png) | ![Windy](./assets_readme/screenshots/windy.png) |
 
 ### Building
 
