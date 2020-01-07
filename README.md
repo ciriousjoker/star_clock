@@ -7,7 +7,7 @@ Build instructions below.
 
 #### Here's a small demo video:
 
-<a href='https://www.youtube.com/watch?v=ZuHLtdbaXqc'><img alt='Watch demo on YouTube' src='assets_readme/youtube-banner/YouTube Banner.png' height="32px"/></a>
+<a href='https://www.youtube.com/watch?v=ZuHLtdbaXqc'><img alt='Watch demo on YouTube' src='assets_readme/youtube-banner/YouTube Banner v2.png' height="32px"/></a>
 
 ### Screenshots
 
