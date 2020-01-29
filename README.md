@@ -33,6 +33,15 @@ Build instructions below.
 -   `flutter pub run flutter_launcher_icons:main`
 -   `flutter run --release`
 
+### Flare animations
+
+- Numbers: [0](https://rive.app/a/ciriousjoker/files/flare/number-0/preview), [1](https://rive.app/a/ciriousjoker/files/flare/number-1/preview), [2](https://rive.app/a/ciriousjoker/files/flare/number-2/preview), [3](https://rive.app/a/ciriousjoker/files/flare/number-3/preview), [4](https://rive.app/a/ciriousjoker/files/flare/number-4/preview), [5](https://rive.app/a/ciriousjoker/files/flare/number-5/preview), [6](https://rive.app/a/ciriousjoker/files/flare/number-6/preview), [7](https://rive.app/a/ciriousjoker/files/flare/number-7/preview), [8](https://rive.app/a/ciriousjoker/files/flare/number-8/preview), [9](https://rive.app/a/ciriousjoker/files/flare/number-9/preview)
+- [background](https://rive.app/a/ciriousjoker/files/flare/background/preview)
+- [colon](https://rive.app/a/ciriousjoker/files/flare/colon/preview)
+- Weather conditions: [sunny](https://rive.app/a/ciriousjoker/files/flare/weather-sunny/preview),
+[windy](https://rive.app/a/ciriousjoker/files/flare/weather-windy/preview), [snowy](https://rive.app/a/ciriousjoker/files/flare/weather-snowy/preview), [rainy](https://rive.app/a/ciriousjoker/files/flare/weather-rainy/preview), [windy](https://rive.app/a/ciriousjoker/files/flare/weather-windy/preview), [thunderstorm](https://rive.app/a/ciriousjoker/files/flare/weather-thunderstorm/preview)
+
+
 ### Notes
 
 -   If Android produces a build error (something about plugins), delete the MainActivity.kt file and try again. This bug appeared in flutter beta. I couldn't reproduce it on flutter stable, but who knows what happens.
